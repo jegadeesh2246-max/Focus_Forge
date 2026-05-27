@@ -1,0 +1,6 @@
+{
+  "name": "DisciplineOS",
+  "description": "An immersive, gamified discipline cockpit designed for students preparing for placements and exams. Featuring full DSA/apt trackers, virtual avatar progression, brutal AI motivational feedback, smart anti-procrastination locks, and future projection simulations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

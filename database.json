@@ -1,0 +1,370 @@
+{
+  "users": [
+    {
+      "id": "default_user",
+      "username": "Procrastinator99",
+      "email": "student@disciplineos.dev",
+      "passwordHash": "survive",
+      "avatarLevel": 3,
+      "avatarXp": 340,
+      "avatarTitle": "Bug Spammer",
+      "avatarTheme": "neon-amber",
+      "disciplineScore": 68,
+      "streak": 4,
+      "unlockedTracks": [
+        "cyberpunk-pulse",
+        "rain-cafe"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t1",
+      "userId": "default_user",
+      "title": "Reverse a Linked List in place without copying nodes",
+      "category": "DSA",
+      "difficulty": "Medium",
+      "status": "Completed",
+      "xpReward": 30,
+      "createdAt": "2026-05-27T08:01:03.654Z",
+      "completedAt": "2026-05-27T10:01:03.654Z"
+    },
+    {
+      "id": "t2",
+      "userId": "default_user",
+      "title": "Complete mock aptitude quiz: Probability and Time-Space complexity",
+      "category": "Aptitude",
+      "difficulty": "Medium",
+      "status": "Pending",
+      "xpReward": 35,
+      "createdAt": "2026-05-27T11:01:03.654Z"
+    },
+    {
+      "id": "t3",
+      "userId": "default_user",
+      "title": "Optimise portfolio description and upload PDF parser tags",
+      "category": "Resume",
+      "difficulty": "Hard",
+      "status": "Pending",
+      "xpReward": 50,
+      "createdAt": "2026-05-27T11:01:03.654Z"
+    },
+    {
+      "id": "t4",
+      "userId": "default_user",
+      "title": "Conduct System Design Mock Interview with Peer",
+      "category": "Mock_Interview",
+      "difficulty": "Hard",
+      "status": "Completed",
+      "xpReward": 60,
+      "createdAt": "2026-05-26T17:01:03.654Z",
+      "completedAt": "2026-05-27T06:01:03.654Z"
+    }
+  ],
+  "focusSessions": [
+    {
+      "id": "f1",
+      "userId": "default_user",
+      "durationMinutes": 25,
+      "completedAt": "2026-05-27T09:01:03.654Z",
+      "focusExits": 0,
+      "focusScore": 100
+    },
+    {
+      "id": "f2",
+      "userId": "default_user",
+      "durationMinutes": 45,
+      "completedAt": "2026-05-27T06:01:03.654Z",
+      "focusExits": 2,
+      "focusScore": 78
+    }
+  ],
+  "rewards": [
+    {
+      "id": "r1",
+      "userId": "default_user",
+      "title": "Watch 1 episode of Sci-Fi anime on Netflix",
+      "category": "Netflix",
+      "costXp": 150,
+      "redeemedCount": 1,
+      "lastRedeemedAt": "2026-05-27T07:01:03.654Z"
+    },
+    {
+      "id": "r2",
+      "userId": "default_user",
+      "title": "Play 30 minutes of Cyberpunk RPG",
+      "category": "Gaming",
+      "costXp": 200,
+      "redeemedCount": 0
+    },
+    {
+      "id": "r3",
+      "userId": "default_user",
+      "title": "Grab double-shot iced espresso with a donut",
+      "category": "Snacks",
+      "costXp": 100,
+      "redeemedCount": 3,
+      "lastRedeemedAt": "2026-05-25T11:01:03.654Z"
+    }
+  ],
+  "achievements": [
+    {
+      "id": "a1",
+      "userId": "default_user",
+      "title": "Dawn of Focus",
+      "description": "Complete a continuous 25-minute Pomodoro session with zero task exits.",
+      "badge": "Zap",
+      "unlockedAt": "2026-05-24T11:01:03.654Z"
+    },
+    {
+      "id": "a2",
+      "userId": "default_user",
+      "title": "Recruiter Bait",
+      "description": "Complete 5 resume-related enhancement actions.",
+      "badge": "Award",
+      "unlockedAt": "2026-05-26T11:01:03.654Z"
+    }
+  ],
+  "dailyActivities": [
+    {
+      "date": "2026-04-28",
+      "completedTasks": 1,
+      "missedTasks": 0,
+      "focusMinutes": 36,
+      "focusExits": 1,
+      "score": 85
+    },
+    {
+      "date": "2026-04-29",
+      "completedTasks": 1,
+      "missedTasks": 0,
+      "focusMinutes": 46,
+      "focusExits": 1,
+      "score": 83
+    },
+    {
+      "date": "2026-04-30",
+      "completedTasks": 1,
+      "missedTasks": 1,
+      "focusMinutes": 36,
+      "focusExits": 0,
+      "score": 90
+    },
+    {
+      "date": "2026-05-01",
+      "completedTasks": 2,
+      "missedTasks": 1,
+      "focusMinutes": 36,
+      "focusExits": 1,
+      "score": 82
+    },
+    {
+      "date": "2026-05-02",
+      "completedTasks": 2,
+      "missedTasks": 0,
+      "focusMinutes": 25,
+      "focusExits": 1,
+      "score": 77
+    },
+    {
+      "date": "2026-05-03",
+      "completedTasks": 3,
+      "missedTasks": 0,
+      "focusMinutes": 48,
+      "focusExits": 1,
+      "score": 78
+    },
+    {
+      "date": "2026-05-04",
+      "completedTasks": 1,
+      "missedTasks": 0,
+      "focusMinutes": 33,
+      "focusExits": 0,
+      "score": 87
+    },
+    {
+      "date": "2026-05-05",
+      "completedTasks": 0,
+      "missedTasks": 3,
+      "focusMinutes": 0,
+      "focusExits": 5,
+      "score": 26
+    },
+    {
+      "date": "2026-05-06",
+      "completedTasks": 3,
+      "missedTasks": 0,
+      "focusMinutes": 67,
+      "focusExits": 0,
+      "score": 79
+    },
+    {
+      "date": "2026-05-07",
+      "completedTasks": 2,
+      "missedTasks": 1,
+      "focusMinutes": 47,
+      "focusExits": 0,
+      "score": 71
+    },
+    {
+      "date": "2026-05-08",
+      "completedTasks": 1,
+      "missedTasks": 1,
+      "focusMinutes": 74,
+      "focusExits": 1,
+      "score": 74
+    },
+    {
+      "date": "2026-05-09",
+      "completedTasks": 2,
+      "missedTasks": 0,
+      "focusMinutes": 66,
+      "focusExits": 0,
+      "score": 75
+    },
+    {
+      "date": "2026-05-10",
+      "completedTasks": 0,
+      "missedTasks": 3,
+      "focusMinutes": 0,
+      "focusExits": 5,
+      "score": 14
+    },
+    {
+      "date": "2026-05-11",
+      "completedTasks": 3,
+      "missedTasks": 1,
+      "focusMinutes": 55,
+      "focusExits": 0,
+      "score": 89
+    },
+    {
+      "date": "2026-05-12",
+      "completedTasks": 1,
+      "missedTasks": 1,
+      "focusMinutes": 66,
+      "focusExits": 0,
+      "score": 80
+    },
+    {
+      "date": "2026-05-13",
+      "completedTasks": 1,
+      "missedTasks": 0,
+      "focusMinutes": 60,
+      "focusExits": 0,
+      "score": 79
+    },
+    {
+      "date": "2026-05-14",
+      "completedTasks": 1,
+      "missedTasks": 0,
+      "focusMinutes": 71,
+      "focusExits": 0,
+      "score": 91
+    },
+    {
+      "date": "2026-05-15",
+      "completedTasks": 0,
+      "missedTasks": 3,
+      "focusMinutes": 0,
+      "focusExits": 5,
+      "score": 18
+    },
+    {
+      "date": "2026-05-16",
+      "completedTasks": 3,
+      "missedTasks": 0,
+      "focusMinutes": 51,
+      "focusExits": 1,
+      "score": 91
+    },
+    {
+      "date": "2026-05-17",
+      "completedTasks": 3,
+      "missedTasks": 0,
+      "focusMinutes": 41,
+      "focusExits": 1,
+      "score": 71
+    },
+    {
+      "date": "2026-05-18",
+      "completedTasks": 1,
+      "missedTasks": 1,
+      "focusMinutes": 45,
+      "focusExits": 0,
+      "score": 87
+    },
+    {
+      "date": "2026-05-19",
+      "completedTasks": 2,
+      "missedTasks": 1,
+      "focusMinutes": 48,
+      "focusExits": 0,
+      "score": 94
+    },
+    {
+      "date": "2026-05-20",
+      "completedTasks": 3,
+      "missedTasks": 0,
+      "focusMinutes": 78,
+      "focusExits": 0,
+      "score": 83
+    },
+    {
+      "date": "2026-05-21",
+      "completedTasks": 1,
+      "missedTasks": 0,
+      "focusMinutes": 42,
+      "focusExits": 1,
+      "score": 93
+    },
+    {
+      "date": "2026-05-22",
+      "completedTasks": 0,
+      "missedTasks": 3,
+      "focusMinutes": 0,
+      "focusExits": 5,
+      "score": 13
+    },
+    {
+      "date": "2026-05-23",
+      "completedTasks": 2,
+      "missedTasks": 1,
+      "focusMinutes": 30,
+      "focusExits": 1,
+      "score": 94
+    },
+    {
+      "date": "2026-05-24",
+      "completedTasks": 3,
+      "missedTasks": 0,
+      "focusMinutes": 84,
+      "focusExits": 0,
+      "score": 98
+    },
+    {
+      "date": "2026-05-25",
+      "completedTasks": 3,
+      "missedTasks": 1,
+      "focusMinutes": 80,
+      "focusExits": 1,
+      "score": 75
+    },
+    {
+      "date": "2026-05-26",
+      "completedTasks": 0,
+      "missedTasks": 3,
+      "focusMinutes": 0,
+      "focusExits": 5,
+      "score": 21
+    },
+    {
+      "date": "2026-05-27",
+      "completedTasks": 1,
+      "missedTasks": 1,
+      "focusMinutes": 68,
+      "focusExits": 0,
+      "score": 76
+    }
+  ]
+}
