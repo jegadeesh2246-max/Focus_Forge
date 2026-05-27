@@ -60,13 +60,13 @@ export function AuthCard({ onAuthSuccess }: AuthCardProps) {
             <Shield className="w-8 h-8" />
           </div>
           <h2 className="text-3xl font-bold text-slate-100 tracking-tight font-sans">
-            DISCIPLINE<span className="text-amber-500 font-mono">OS</span>
+            FOCUS<span className="text-amber-500 font-mono">FORGE</span>
           </h2>
-          <p className="text-xs text-slate-400 font-mono mt-1">v2.5.0-STAGE-INGRESS</p>
+          <p className="text-xs text-slate-400 font-mono mt-1">Grow with me</p>
           <p className="text-sm text-slate-400 mt-2">
             {isLogin 
-              ? 'Synchronise credentials to enter your placement cockpit.' 
-              : 'Construct a new discipline soul to track DSA & study goals.'}
+              ? 'Login using your account details to access your placement dashboard' 
+              : 'Create an account to track your DSA progress and study goals'}
           </p>
         </div>
 
@@ -87,7 +87,7 @@ export function AuthCard({ onAuthSuccess }: AuthCardProps) {
           )}
 
           <div>
-            <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">Email / Handles</label>
+            <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">Email</label>
             <input
               id="auth-email"
               type="text"
@@ -100,7 +100,7 @@ export function AuthCard({ onAuthSuccess }: AuthCardProps) {
           </div>
 
           <div>
-            <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">Cryptographic Key</label>
+            <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">Password</label>
             <input
               id="auth-password"
               type="password"
@@ -128,11 +128,11 @@ export function AuthCard({ onAuthSuccess }: AuthCardProps) {
               <span className="w-5 h-5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin"></span>
             ) : isLogin ? (
               <>
-                <LogIn className="w-4 h-4" /> Initiating Uplink ...
+                <LogIn className="w-4 h-4" /> Loading...
               </>
             ) : (
               <>
-                <UserPlus className="w-4 h-4" /> Instantiate Soul ...
+                <UserPlus className="w-4 h-4" /> Creating Account...
               </>
             )}
           </button>
@@ -150,7 +150,7 @@ export function AuthCard({ onAuthSuccess }: AuthCardProps) {
             onClick={loadGuestCredentials}
             className="w-full cursor-pointer flex items-center justify-center gap-1 bg-slate-950 hover:bg-slate-900 border border-slate-800 rounded-lg py-2 text-xs font-mono text-slate-300 transition-colors"
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-500" /> Auto-Load Guest Demo Account
+            <Sparkles className="w-3.5 h-3.5 text-amber-500" /> Continue as Guest
           </button>
 
           <button
