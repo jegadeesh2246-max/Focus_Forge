@@ -1,4 +1,4 @@
-```tsx
+
 import React, { useState } from 'react';
 import { Shield, Sparkles, LogIn, UserPlus } from 'lucide-react';
 import { User } from '../types';
