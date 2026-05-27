@@ -74,7 +74,7 @@ export function TrackerSect({ tasks, onAddTask, onToggleTask, onDeleteTask }: Tr
       </div>
 
       {/* Target Progress Quick Widgets */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div className="bg-slate-950/40 border border-slate-800/80 rounded-xl p-3">
           <span className="block text-[10px] font-mono text-slate-500 uppercase">DSA SOLVED</span>
           <span className="text-lg font-bold text-slate-200 mt-1 block">
@@ -128,7 +128,7 @@ export function TrackerSect({ tasks, onAddTask, onToggleTask, onDeleteTask }: Tr
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-1">Category Group</label>
               <select

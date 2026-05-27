@@ -623,23 +623,77 @@ app.post('/api/rewards/:id/redeem', (req, res) => {
 });
 
 // Analytics Dashboard & Heatmap
+// Analytics Dashboard & Heatmap
 app.get('/api/analytics/:userId', (req, res) => {
   const db = loadDB();
   const userId = req.params.userId;
-  
-  // Overall consistency metrics
+
+  // Get current user
+  const user = db.users.find(u => u.id === userId);
+
+  if (!user) {
+    return res.status(404).json({
+      success: false,
+      message: 'User not found'
+    });
+  }
+
+  // User-specific records
   const focus = db.focusSessions.filter(s => s.userId === userId);
   const tasks = db.tasks.filter(t => t.userId === userId);
   const achievements = db.achievements.filter(a => a.userId === userId);
-  
-  const totalFocusMinutes = focus.reduce((acc, current) => acc + current.durationMinutes, 0);
+
+  const totalFocusMinutes = focus.reduce(
+    (acc, current) => acc + current.durationMinutes,
+    0
+  );
+
   const totalFocusSessions = focus.length;
-  
-  const completedTasksCount = tasks.filter(t => t.status === 'Completed').length;
-  const pendingTasksCount = tasks.filter(t => t.status === 'Pending').length;
-  
-  // Sort heatmap activity
-  const sortedActivities = [...db.dailyActivities].sort((a, b) => a.date.localeCompare(b.date));
+
+  const completedTasksCount = tasks.filter(
+    t => t.status === 'Completed'
+  ).length;
+
+  const pendingTasksCount = tasks.filter(
+    t => t.status === 'Pending'
+  ).length;
+
+  // =========================================
+  // NEW USER VS EXISTING USER LOGIC
+  // =========================================
+
+  // Define who is a "new user"
+  const isNewUser =
+    totalFocusSessions === 0 &&
+    completedTasksCount === 0;
+
+  let generatedHeatmap: any[] = [];
+
+  const now = new Date();
+
+  // NEW USER → SHOW NEXT 30 DAYS
+  if (isNewUser) {
+    for (let i = 0; i < 30; i++) {
+      const d = new Date();
+      d.setDate(now.getDate() + i);
+
+      generatedHeatmap.push({
+        date: d.toISOString().split('T')[0],
+        completedTasks: 0,
+        missedTasks: 0,
+        focusMinutes: 0,
+        focusExits: 0,
+        score: 0,
+      });
+    }
+  }
+
+  // EXISTING USER → SHOW LAST 30 DAYS
+  else {
+    generatedHeatmap = [...db.dailyActivities]
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .slice(-30);
+  }
 
   res.json({
     success: true,
@@ -648,173 +702,6 @@ app.get('/api/analytics/:userId', (req, res) => {
     completedTasksCount,
     pendingTasksCount,
     achievements,
-    heatmap: sortedActivities
+    heatmap: generatedHeatmap
   });
 });
-
-// Future Simulation projection calculations
-app.get('/api/projections/:userId', (req, res) => {
-  const db = loadDB();
-  const userId = req.params.userId;
-  const user = db.users.find(u => u.id === userId);
-  if (!user) return res.status(404).json({ success: false });
-
-  const score = user.disciplineScore;
-
-  // Disciplined forecast calculations
-  const premiumProjection = {
-    scenario: 'disciplined',
-    dsaProgress: Math.min(100, Math.floor(score * 1.1)),
-    interviewReady: Math.min(100, Math.floor(score * 1.25)),
-    expectedPlacementSalary: `${Math.floor(score * 0.2 + 8)}L - ${Math.floor(score * 0.4 + 18)}L PA`,
-    confidenceRating: Math.min(100, Math.floor(score * 1.2)),
-    avatarFate: 'QUANTUM COMPILER ARCHITECT',
-    tagline: 'Elite placement offer achieved. You built your dream engine through deliberate daily execution.',
-  };
-
-  // Slack procrastinator forecast
-  const slackProjection = {
-    scenario: 'procrastinator',
-    dsaProgress: Math.max(10, Math.floor((100 - score) * 0.3)),
-    interviewReady: Math.max(5, Math.floor((100 - score) * 0.2)),
-    expectedPlacementSalary: 'Unemployed / 3.2L Mass Recruiter (Sub-optimal desk)',
-    confidenceRating: Math.max(12, Math.floor((100 - score) * 0.4)),
-    avatarFate: 'COFFEE-STAINED BUG SPAMMER',
-    tagline: 'You delayed starting everyday, waiting for perfect motivation. The market was cruel and non-waiting.',
-  };
-
-  res.json({
-    success: true,
-    disciplined: premiumProjection,
-    procrastinator: slackProjection,
-    currentScore: score
-  });
-});
-
-// AI Motivation System Endpoint using `@google/genai`
-app.post('/api/coach', async (req, res) => {
-  const { userId, mode } = req.body; // mode: 'soft' | 'brutal'
-  const db = loadDB();
-  const user = db.users.find(u => u.id === userId);
-  
-  if (!user) {
-    return res.status(404).json({ success: false, message: 'User not found' });
-  }
-
-  // Gather stats context to supply to Gemini model for hyper-personalized motivational responses
-  const pendingTasks = db.tasks.filter(t => t.userId === userId && t.status === 'Pending').map(t => t.title);
-  const completedTasksNo = db.tasks.filter(t => t.userId === userId && t.status === 'Completed').length;
-  const recentSessions = db.focusSessions.filter(s => s.userId === userId).slice(-3);
-  const exitsSum = recentSessions.reduce((acc, curr) => acc + curr.focusExits, 0);
-
-  const statsContext = `
-    User info:
-    - Username: ${user.username}
-    - Avatar Level: ${user.avatarLevel}
-    - Avatar Title: ${user.avatarTitle}
-    - Discipline Score: ${user.disciplineScore}/100
-    - Streak: ${user.streak} days
-    - Focus Exits logged recently: ${exitsSum} context switch violations
-    - Pending Tasks in pipeline: ${pendingTasks.length > 0 ? pendingTasks.join(', ') : 'None! Active backlog cleared.'}
-    - Total completed tasks catalogued: ${completedTasksNo}
-  `;
-
-  let prompt = '';
-  let systemInstruction = '';
-
-  if (mode === 'brutal') {
-    systemInstruction = `
-      You are a brutally honest, aggressive, toxic yet hilarious accountability coach named "Archlord Roast-o-matic".
-      Your task is to completely shatter the user's complacency. Use dark humor, sarcastic software-developer inside jokes (compiled code, LeetCode, git resets, unemployment, mass recruiters, coffee addictions).
-      Roast them based on their discipline score, pending tasks, or if they keep clicking out of focus mode (exits). 
-      Make them realize that if they keep procrastinating, they will be replaced by a 10-line python script.
-      Be hyper-personalized! Address them by username. Keep responses punchy, sharp, epic, and highly entertaining (within 3 sentences max). No emojis. Keep formatting clean.
-    `;
-    prompt = `Analyze this slacker statistics and deliver an absolute tactical emotional payload of reality check:\n${statsContext}`;
-  } else {
-    systemInstruction = `
-      You are a calming, intensely positive, wise virtual mentor named "Oracle Spark".
-      You understand the psychological fatigue of placement prep and exams.
-      Deliver a serene, deeply empowering, high-contrast motivation statement. Express belief in their incremental progress.
-      Give a specific, practical engineering tip. Keep text within 3 sentences max. Use warm, comforting language. No generic slogans. Keep formatting clean.
-    `;
-    prompt = `Analyze their progress and offer positive motivation:\n${statsContext}`;
-  }
-
-  // Call Gemini Model server-side
-  try {
-    if (!process.env.GEMINI_API_KEY) {
-      // Fallback fallback if key is empty
-      const fallbackMsg = mode === 'brutal' 
-        ? `Hey ${user.username}, your discipline score is ${user.disciplineScore}%. Do you hear that? It is the sound of 10,000 other candidates coding clean recursive algorithms in their sleep while you browse forums. Get back to focus mode before I deprecate your credentials.`
-        : `Greetings ${user.username}. Level ${user.avatarLevel} is an impressive foundation. Take a slow, deep breath. Every line of code compiled, and every test completed, is a brick in the monument of your future intelligence. I believe in your focus.`;
-      
-      return res.json({
-        success: true,
-        message: fallbackMsg,
-        timestamp: new Date().toISOString()
-      });
-    }
-
-    const response = await getAIClient().models.generateContent({
-      model: 'gemini-3.5-flash',
-      contents: prompt,
-      config: {
-        systemInstruction,
-        temperature: 0.85,
-      }
-    });
-
-    const returnedText = response.text || '';
-    res.json({
-      success: true,
-      message: returnedText.trim(),
-      timestamp: new Date().toISOString()
-    });
-
-  } catch (error: any) {
-    console.error('Gemini API call failed, using responsive system simulator fallback:', error?.message);
-    const fallbackMsg = mode === 'brutal' 
-      ? `Hey ${user.username}, context exits have risen. While you refresh social feeds, top tier companies are releasing rejection templates for underprepared compilers. Boost that ${user.disciplineScore}% score now.`
-      : `Dear ${user.username}. Pause and congratulate yourself on logging into your cockpit today. Even microscopic movements forward defeat procrastination. Let us conquer one simple DSA task right now.`;
-    
-    res.json({
-      success: true,
-      message: fallbackMsg,
-      timestamp: new Date().toISOString()
-    });
-  }
-});
-
-// Seed custom defaults endpoint for visual convenience
-app.post('/api/user/reset', (req, res) => {
-  const init = getInitialData();
-  saveDB(init);
-  res.json({ success: true, user: init.users[0] });
-});
-
-// Setup Vite & Static Assets serving
-async function startServer() {
-  // Vite integration
-  if (process.env.NODE_ENV !== 'production') {
-    const { createServer: createViteServer } = await import('vite');
-    const vite = await createViteServer({
-      server: { middlewareMode: true },
-      appType: 'spa',
-    });
-    app.use(vite.middlewares);
-  } else {
-    // Serve static frontend compiled bundle
-    const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath));
-    app.get('*', (req: express.Request, res: express.Response) => {
-      res.sendFile(path.join(distPath, 'index.html'));
-    });
-  }
-
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`DisciplineOS Full-Stack server booted at http://0.0.0.0:${PORT}`);
-  });
-}
-
-startServer();

@@ -75,7 +75,8 @@ export function HeatmapGraph({ heatmapData, totalFocusSessions, completedTasksCo
       <div className="mb-6 bg-slate-950/40 border border-slate-850/80 p-4 rounded-xl">
         <span className="block text-[10px] font-mono text-slate-500 uppercase tracking-wider mb-3">LAST 30 DAYS CONSISTENCY HEATMAP</span>
         
-        <div className="flex flex-wrap items-center gap-1.5 justify-start md:justify-between py-1">
+        <div className="overflow-x-auto">
+         <div className="flex gap-1.5 min-w-[720px] py-1">
           {sortedData.map((day, idx) => {
             const dateObj = new Date(day.date);
             const formattedDate = dateObj.toLocaleDateString([], { month: 'short', day: 'numeric' });
@@ -83,7 +84,7 @@ export function HeatmapGraph({ heatmapData, totalFocusSessions, completedTasksCo
               <div
                 id={`grid-cell-${day.date}`}
                 key={day.date}
-                className={`w-6 h-6 rounded-md border flex items-center justify-center text-[8px] font-mono hover:scale-110 transition-all cursor-crosshair group/grid ${getGridColorClass(day)}`}
+                className={w-5 h-5 md:`w-6 h-6 rounded-md border flex items-center justify-center text-[8px] font-mono hover:scale-110 transition-all cursor-crosshair group/grid ${getGridColorClass(day)}`}
               >
                 {/* Micro hovering tooltips explaining metrics details on hover */}
                 <div className="absolute font-mono hidden group-hover/item:block group-hover/grid:block bg-slate-950 border border-slate-800 text-[10px] text-slate-300 p-2.5 rounded-lg shadow-xl z-20 pointer-events-none w-44 text-left leading-normal transform translate-y-[-55px]">
