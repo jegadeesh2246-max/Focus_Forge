@@ -8,8 +8,8 @@ interface AuthCardProps {
 
 export function AuthCard({ onAuthSuccess }: AuthCardProps) {
   const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState('student@disciplineos.dev');
-  const [password, setPassword] = useState('survive');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -128,7 +128,7 @@ export function AuthCard({ onAuthSuccess }: AuthCardProps) {
               <span className="w-5 h-5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin"></span>
             ) : isLogin ? (
               <>
-                <LogIn className="w-4 h-4" /> Loading...
+                <LogIn className="w-4 h-4" /> Signing In...
               </>
             ) : (
               <>
@@ -161,7 +161,7 @@ export function AuthCard({ onAuthSuccess }: AuthCardProps) {
             }}
             className="text-center text-xs text-slate-400 hover:text-amber-400 transition-colors mt-2"
           >
-            {isLogin ? 'Need an organic profile? Create a new one' : 'Already have a discipline lock? Sign In'}
+            {isLogin ? 'Need an organic profile? Create a new one' : 'Already have an Account? Sign In'}
           </button>
         </div>
       </div>
